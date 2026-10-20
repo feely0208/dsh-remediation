@@ -1,0 +1,25 @@
+{
+  "ruleId": "LOG-DISABLED",
+  "title": "日志级别被关闭",
+  "effort": "5 分钟",
+  "steps": [
+    "恢复审计日志，级别至少到 info；生产环境不要出现 off / none / silent / disabled。",
+    "嫌日志太吵就按模块调高到 warn 或做采样，而不是整体关闭。",
+    "登录、权限变更、数据导出这类安全审计事件必须保留且不可被业务代码关掉。",
+    "检查环境变量与部署配置是否会在生产覆盖成 off。"
+  ],
+  "snippets": [
+    {
+      "lang": "yaml",
+      "before": "level: off",
+      "after": "level: info"
+    }
+  ],
+  "verify": "重跑 dsh-cn-log-retention --root <项目>，LOG-DISABLED 应消失",
+  "autoApply": {
+    "type": "setValue",
+    "glob": "**/*.{js,mjs,cjs,ts,json,yml,yaml,ini,conf,properties,toml}",
+    "pattern": "((?:log[_-]?level|level|loglevel)\\s*[:=]\\s*[\"']?)(off|none|silent|disabled|false)",
+    "after": "info"
+  }
+}

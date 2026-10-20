@@ -1,0 +1,19 @@
+{
+  "ruleId": "EDU-SCORE-RANK-PUBLIC",
+  "title": "代码或前端资源里出现成绩排名、名次榜单或升学情况",
+  "effort": "1 小时",
+  "steps": [
+    "关掉跨人可见的成绩榜单/排名接口与页面，改为只查本人成绩（如 /api/score/mine）。",
+    "前端删除 leaderboard / rank 渲染逻辑，不展示任何名次；教师端分析页不要向学生或家长开放排名。",
+    "删除「高考喜报」「升学率」「一本上线率」这类宣传文案。",
+    "如果命中只是数组排序变量（把 rank 当 sort 别名），改名或加注释说明，避免后续误读。"
+  ],
+  "snippets": [
+    {
+      "lang": "javascript",
+      "before": "router.get('/api/score/rank', listScoreRank);",
+      "after": "// 不提供跨人可见的成绩排名，只查本人\nrouter.get('/api/score/mine', getMyScore);"
+    }
+  ],
+  "verify": "重跑 dsh-industry-education --root <项目>，EDU-SCORE-RANK-PUBLIC 应消失"
+}

@@ -1,0 +1,19 @@
+{
+  "ruleId": "SBOM-NO-LIST",
+  "title": "有依赖清单却没有物料清单 —— 项目里找不到任何 SBOM 文件",
+  "effort": "30 分钟",
+  "steps": [
+    "用 CycloneDX 或 SPDX 工具生成 SBOM：syft、@cyclonedx/cyclonedx-npm、spdx-sbom-generator 都可以。",
+    "把产物放在仓库根目录或 docs/ 下的固定位置（如 sbom.json），并在 README 写清生成命令。",
+    "随发布物一起发布；每次发版在 CI 里重新生成，避免清单停在旧依赖版本。",
+    "核对 SBOM 组件数量与 lockfile 对得上，别生成一个空壳。"
+  ],
+  "snippets": [
+    {
+      "lang": "shell",
+      "before": "npm ci",
+      "after": "npm ci && npx @cyclonedx/cyclonedx-npm --output-file sbom.json"
+    }
+  ],
+  "verify": "重跑 dsh-sbom --root <项目>，SBOM-NO-LIST 应消失"
+}

@@ -1,0 +1,24 @@
+{
+  "ruleId": "LIFE-NO-RETENTION-POLICY",
+  "title": "项目里有数据落地，但找不到任何成文的数据留存期限规定",
+  "effort": "1 小时",
+  "steps": [
+    "列一张表：每类数据存哪、留多久、到期怎么处理、谁负责。",
+    "期限必须能落到可执行的清理任务（定时任务 / TTL / 分区删除），不能只写在文档里。",
+    "配置里的 retention / TTL 数值与这张表保持一致。",
+    "法定最低期限（如日志 180 天、交易记录 10 年）要单独标注。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（没有留存期限规定）",
+      "after": "| 数据类别 | 留存期限 | 到期处理 | 责任人 |\n|---|---|---|---|\n| 网络日志 | ≥180 天 | 轮转销毁 | 运维 |\n| 个人信息 | 目的所需最短时间 | 删除/匿名化 | 业务负责人 |"
+    }
+  ],
+  "verify": "重跑 dsh-data-lifecycle --root <项目>，LIFE-NO-RETENTION-POLICY 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/数据留存期限规定.md",
+    "template": "retention-policy"
+  }
+}

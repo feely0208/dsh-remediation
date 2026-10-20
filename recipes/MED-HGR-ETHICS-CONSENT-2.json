@@ -1,0 +1,24 @@
+{
+  "ruleId": "MED-HGR-ETHICS-CONSENT-2",
+  "title": "涉及人类遗传资源的项目找不到知情同意模板或签署记录",
+  "effort": "30 分钟",
+  "steps": [
+    "补一份知情同意书模板，覆盖研究目的、样本用途、保存期限、对外提供、退出机制。",
+    "模板须经伦理委员会审查后使用，写清伦理批件号与研究者联系方式。",
+    "说明签署件的归档位置与保存期限。",
+    "向外方提供数据时按规定备案并提交信息备份。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（没有知情同意模板）",
+      "after": "## 知情同意事项\n1. 研究目的：……\n2. 样本与数据用途：仅用于上述研究\n3. 保存期限与地点：……\n4. 对外提供：如需向外方提供，将办理备案并提交备份\n5. 自愿与退出：可随时退出"
+    }
+  ],
+  "verify": "重跑 dsh-industry-medical --root <项目>，MED-HGR-ETHICS-CONSENT-2 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/知情同意书模板.md",
+    "template": "informed-consent"
+  }
+}

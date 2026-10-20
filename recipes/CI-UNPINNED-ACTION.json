@@ -1,0 +1,19 @@
+{
+  "ruleId": "CI-UNPINNED-ACTION",
+  "title": "Action 未锁定版本（用 @main / @master）",
+  "effort": "30 分钟",
+  "steps": [
+    "把 uses 里的 @main / @master / @latest / @HEAD 换成完整 40 位 commit SHA。",
+    "行尾注释保留语义版本号，方便人看和升级。",
+    "启用 Dependabot / Renovate 自动升级 action SHA。",
+    "升级前核对 action 来源与变更内容，确认不是同名仿冒仓库。"
+  ],
+  "snippets": [
+    {
+      "lang": "yaml",
+      "before": "uses: actions/checkout@main",
+      "after": "uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2"
+    }
+  ],
+  "verify": "重跑 dsh-ci-guard --root <项目>，CI-UNPINNED-ACTION 应消失"
+}

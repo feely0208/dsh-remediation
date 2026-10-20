@@ -1,0 +1,19 @@
+{
+  "ruleId": "FIN-PAY-SENSITIVE-RETENTION",
+  "title": "支付敏感信息（CVV/CVN/磁道/卡密码）出现在字段、模型或配置里",
+  "effort": "1 小时",
+  "steps": [
+    "先确认字段是否真的落库：只是请求参数透传的，在字段命名或注释里写明「不落库」。",
+    "确实落库的，删除该列/字段；授权完成后立即丢弃，最多保留服务端下发的 token。",
+    "需要展示卡信息时只保留后四位掩码，不展示 CVV、有效期、磁道。",
+    "补一份支付数据流说明，并检查日志、报表、异常上报里不再出现这些字段。"
+  ],
+  "snippets": [
+    {
+      "lang": "java",
+      "before": "private String cvv2;",
+      "after": "// 支付敏感信息不落库，授权完成后立即丢弃\nprivate String cardToken;"
+    }
+  ],
+  "verify": "重跑 dsh-industry-finance --root <项目>，FIN-PAY-SENSITIVE-RETENTION 应消失"
+}

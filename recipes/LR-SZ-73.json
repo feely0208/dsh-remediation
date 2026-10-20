@@ -1,0 +1,24 @@
+{
+  "ruleId": "LR-SZ-73",
+  "title": "处理敏感个人数据 / 重要数据：数据安全管理机构与责任人的设置",
+  "effort": "30 分钟",
+  "steps": [
+    "先确认组织是否已有数据安全管理机构与责任人 —— 可能只是没写进这个仓库。",
+    "有：把任命文件编号、机构职责、责任人岗位与联系方式写进 docs/compliance 或隐私政策。",
+    "没有：按模板建立制度并正式发文，明确机构、责任人和工作机制。",
+    "把责任人联系方式同步到隐私政策与应急联系人；处理敏感数据前经责任人审批并留痕。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（仓库里找不到机构/责任人说明）",
+      "after": "数据安全管理机构：信息安全与数据治理委员会（文号：XXXX）\n数据安全管理责任人：张三 / 数据安全负责人 / security@example.com"
+    }
+  ],
+  "verify": "重跑 dsh-local-regulation --root <项目>，LR-SZ-73 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/数据安全管理制度.md",
+    "template": "data-security-org"
+  }
+}

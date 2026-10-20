@@ -1,0 +1,19 @@
+{
+  "ruleId": "MED-EMR-AUDIT-TRAIL-2",
+  "title": "全项目找不到独立的病历操作审计日志表或等效审计机制",
+  "effort": "1 小时",
+  "steps": [
+    "建一张独立操作日志表（audit_log / oper_log），字段至少：操作时间、操作人、操作对象、操作类型、结果、前后值或摘要。",
+    "在代码里接入统一审计切面/拦截器，覆盖新增、修改、打印、调阅四类操作；日志只追加，不提供修改接口。",
+    "审计日志单独存储、限制访问，留存不少于 180 天，并提供按患者/操作人/时间查询的能力。",
+    "如果审计由医院外部系统承担，在仓库写清系统名称、接口与调取方式，别让「找不到」变成「说不清」。"
+  ],
+  "snippets": [
+    {
+      "lang": "sql",
+      "before": "-- 没有任何审计日志表",
+      "after": "CREATE TABLE emr_audit_log (\n  id BIGINT PRIMARY KEY,\n  oper_time DATETIME NOT NULL,\n  oper_user VARCHAR(64) NOT NULL,\n  oper_type VARCHAR(32) NOT NULL,\n  target_id VARCHAR(64) NOT NULL,\n  detail TEXT\n);"
+    }
+  ],
+  "verify": "重跑 dsh-industry-medical --root <项目>，MED-EMR-AUDIT-TRAIL-2 应消失"
+}

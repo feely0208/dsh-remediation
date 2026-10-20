@@ -1,0 +1,19 @@
+{
+  "ruleId": "FILING-NO-ICP",
+  "title": "应用里找不到 ICP 备案号展示",
+  "effort": "30 分钟",
+  "steps": [
+    "确认网站已完成 ICP 备案，取得备案号（形如「京ICP备XXXXXXXX号-1」）。",
+    "在网站主页面/页脚等显著位置展示，并链接到工信部备案系统 beian.miit.gov.cn。",
+    "如果备案号由部署模板统一渲染，在仓库文档里写明模板位置与出处。",
+    "备案主体变更或新增域名后同步更新展示。"
+  ],
+  "snippets": [
+    {
+      "lang": "html",
+      "before": "<footer>© 2026</footer>",
+      "after": "<footer>© 2026 · <a href=\"https://beian.miit.gov.cn\" target=\"_blank\" rel=\"noopener\">京ICP备XXXXXXXX号-1</a></footer>"
+    }
+  ],
+  "verify": "重跑 dsh-cn-filing --root <项目>，FILING-NO-ICP 应消失"
+}

@@ -1,0 +1,2 @@
+# 处方保存期限：配置值低于法定下限
+prescription_retention_days: 180

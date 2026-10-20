@@ -1,0 +1,19 @@
+{
+  "ruleId": "MLPS-DEFAULT-CRED",
+  "title": "配置或代码里出现默认口令",
+  "effort": "30 分钟",
+  "steps": [
+    "删除 admin / root / 123456 这类默认口令，改为首次启动强制设置。",
+    "服务端口令从环境变量或密钥管理注入，不写进配置文件与镜像。",
+    "启动时检测是否仍为默认值，是则拒绝启动并提示初始化。",
+    "已经用默认口令部署过的环境，立即轮换并检查登录日志。"
+  ],
+  "snippets": [
+    {
+      "lang": "yaml",
+      "before": "password: admin",
+      "after": "password: ${DB_PASSWORD}  # 从环境变量注入，禁止默认口令"
+    }
+  ],
+  "verify": "重跑 dsh-cn-mlps --root <项目>，MLPS-DEFAULT-CRED 应消失"
+}

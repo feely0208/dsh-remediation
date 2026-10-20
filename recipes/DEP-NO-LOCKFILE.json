@@ -1,0 +1,19 @@
+{
+  "ruleId": "DEP-NO-LOCKFILE",
+  "title": "仓库没有 lockfile（依赖树不确定）",
+  "effort": "5 分钟",
+  "steps": [
+    "选一个包管理器并生成 lockfile（package-lock.json / pnpm-lock.yaml / yarn.lock / bun.lockb）。",
+    "把 lockfile 提交到版本控制，不要加进 .gitignore。",
+    "CI 使用 npm ci、pnpm install --frozen-lockfile 这类确定性安装。",
+    "升级依赖后重新生成并提交 lockfile。"
+  ],
+  "snippets": [
+    {
+      "lang": "shell",
+      "before": "npm install",
+      "after": "npm install --package-lock-only && git add package-lock.json"
+    }
+  ],
+  "verify": "重跑 dsh-dep-audit --root <项目>，DEP-NO-LOCKFILE 应消失"
+}

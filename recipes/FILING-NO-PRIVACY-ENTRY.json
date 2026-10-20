@@ -1,0 +1,19 @@
+{
+  "ruleId": "FILING-NO-PRIVACY-ENTRY",
+  "title": "找不到隐私政策入口",
+  "effort": "1 小时",
+  "steps": [
+    "首次启动弹窗展示隐私政策，要求用户主动确认，不得默认勾选、不得以「继续使用即同意」代替。",
+    "设置页提供再次打开隐私政策的入口；链接必须可访问，离线时也能查看本地副本。",
+    "隐私政策逐项写明：处理者名称与联系方式、收集的字段与目的、第三方 SDK、保存期限、撤回方式。",
+    "用户拒绝非必要信息收集时，仍能使用基本功能。"
+  ],
+  "snippets": [
+    {
+      "lang": "html",
+      "before": "<button>开始使用</button>",
+      "after": "<a href=\"/privacy\">《隐私政策》</a>\n<label><input type=\"checkbox\" id=\"agree\"> 我已阅读并同意《隐私政策》</label>\n<button disabled>同意并继续</button>"
+    }
+  ],
+  "verify": "重跑 dsh-cn-filing --root <项目>，FILING-NO-PRIVACY-ENTRY 应消失"
+}

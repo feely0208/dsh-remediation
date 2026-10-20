@@ -1,0 +1,24 @@
+{
+  "ruleId": "LIC-SELF-FILE",
+  "title": "项目根目录缺少 LICENSE 文件",
+  "effort": "5 分钟",
+  "steps": [
+    "选一个许可证：内部项目也建议明确「仅内部使用」或选 MIT / Apache-2.0。",
+    "在仓库根目录补 LICENSE 文件，写清著作权人与年份。",
+    "package.json 的 license 字段与 LICENSE 保持一致。",
+    "核对第三方依赖的许可证与你的分发方式是否兼容（GPL/AGPL 要特别留意）。"
+  ],
+  "snippets": [
+    {
+      "lang": "text",
+      "before": "（根目录没有 LICENSE）",
+      "after": "MIT License\n\nCopyright (c) 2026 示例科技有限公司"
+    }
+  ],
+  "verify": "重跑 dsh-license-guard --root <项目>，LIC-SELF-FILE 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "LICENSE",
+    "template": "mit"
+  }
+}

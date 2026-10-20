@@ -1,0 +1,24 @@
+{
+  "ruleId": "CLASSIFY-NO-POLICY",
+  "title": "找不到数据分类分级制度文档",
+  "effort": "1 小时",
+  "steps": [
+    "在 docs/compliance 写一份数据分类分级制度：分级标准 + 各级保护措施 + 定级流程。",
+    "按业务列出数据资产清单，标注级别、存储位置、责任部门。",
+    "新建表/字段/接口时先定级，再决定存储、传输、展示与留存策略。",
+    "每半年复核一次分级结果，变更时同步更新文档。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（文档里没有分类分级制度）",
+      "after": "| 级别 | 示例 | 保护要求 |\n|---|---|---|\n| 敏感个人数据 | 身份证号、生物识别 | 单独同意、脱敏、审计 |\n| 一般数据 | 业务统计 | 常规权限 |"
+    }
+  ],
+  "verify": "重跑 dsh-data-classify --root <项目>，CLASSIFY-NO-POLICY 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/数据分类分级制度.md",
+    "template": "classify-policy"
+  }
+}

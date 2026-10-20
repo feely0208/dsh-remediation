@@ -1,0 +1,19 @@
+{
+  "ruleId": "EDU-APP-FILING-PUBLIC",
+  "title": "教育移动应用里找不到备案号公示（教APP备NNNNNNN号）",
+  "effort": "30 分钟",
+  "steps": [
+    "先到教育移动应用备案系统核对回执，取得本应用的「教APP备NNNNNNN号」；没拿到备案号前不要上线。",
+    "把备案号放到「关于」页 / 设置页 / 启动页等用户能找到的显著位置，并附备案查询入口。",
+    "在 app.json、Info.plist、AndroidManifest 或 i18n 文案里同步一份，避免某个端漏掉。",
+    "若备案由发行模板统一渲染，在仓库文档里写明出处；备案变更后同步更新。"
+  ],
+  "snippets": [
+    {
+      "lang": "html",
+      "before": "<p>关于我们</p>",
+      "after": "<p>关于我们</p>\n<p>教育移动应用备案号：教APP备XXXXXXXX号</p>"
+    }
+  ],
+  "verify": "重跑 dsh-industry-education --root <项目>，EDU-APP-FILING-PUBLIC 应消失"
+}

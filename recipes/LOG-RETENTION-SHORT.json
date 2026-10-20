@@ -1,0 +1,25 @@
+{
+  "ruleId": "LOG-RETENTION-SHORT",
+  "title": "日志留存期短于法定 6 个月",
+  "effort": "5 分钟",
+  "steps": [
+    "确认命中的是合规日志留存配置，不是排障用的短期轮转 —— 两者要分开配置。",
+    "把留存天数改为 ≥180 天（6 个月按 180 天算），月数改为 ≥6 个月。",
+    "合规日志单独一份保留策略，并保证应用进程不能随意删除（独立账号 / 对象存储 WORM / 日志服务保留策略）。",
+    "确认轮转后的历史日志不被下一次启动清空，日志级别也没有被关闭。"
+  ],
+  "snippets": [
+    {
+      "lang": "yaml",
+      "before": "retentionDays: 30",
+      "after": "retentionDays: 180  # 网络安全法：网络日志不少于 6 个月"
+    }
+  ],
+  "verify": "重跑 dsh-cn-log-retention --root <项目>，LOG-RETENTION-SHORT 应消失",
+  "autoApply": {
+    "type": "setValue",
+    "glob": "**/*.{js,mjs,cjs,ts,json,yml,yaml,ini,conf,properties,toml}",
+    "pattern": "((?:maxDays|max_age|retention|retentionDays|expire|expires|maxAge|keepDays)\\s*[:=]\\s*[\"']?)(\\d{1,2}|1[0-7]\\d)(?=[\"'\\s,;}]|$)",
+    "after": "180"
+  }
+}

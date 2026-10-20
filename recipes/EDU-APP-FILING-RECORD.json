@@ -1,0 +1,24 @@
+{
+  "ruleId": "EDU-APP-FILING-RECORD",
+  "title": "缺少教育移动应用备案信息表（docs/compliance 或 edu-app-record.*）",
+  "effort": "30 分钟",
+  "steps": [
+    "在 docs/compliance/教育移动应用备案信息.md 建备案信息表。",
+    "至少写清：应用名称、备案号、提供者名称、统一社会信用代码、备案日期、最近更新日期。",
+    "每次发版或变更后 10 个工作日内更新，并在表内留一行变更记录。",
+    "如果信息表在内部知识库，在仓库放一份带链接的说明文件。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（没有备案信息表）",
+      "after": "| 项目 | 内容 |\n|---|---|\n| 应用名称 | 示例教育 |\n| 备案号 | 教APP备XXXXXXXX号 |\n| 提供者名称 | 示例科技有限公司 |"
+    }
+  ],
+  "verify": "重跑 dsh-industry-education --root <项目>，EDU-APP-FILING-RECORD 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/教育移动应用备案信息.md",
+    "template": "edu-app-record"
+  }
+}

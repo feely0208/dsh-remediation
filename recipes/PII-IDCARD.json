@@ -1,0 +1,19 @@
+{
+  "ruleId": "PII-IDCARD",
+  "title": "发现身份证号",
+  "effort": "30 分钟",
+  "steps": [
+    "先确认真实还是占位：真实身份证号出现在代码/配置/测试数据里，按敏感个人信息泄露处理。",
+    "移除真实值，改用合成数据生成器；检查 git 历史、日志、导出文件和接口返回。",
+    "接口默认脱敏（保留前 6 后 4 或按业务要求更严），需要明文时单独授权并留痕。",
+    "处理真实身份证号要有单独同意与明确必要性；本工具输出已打码，修复后重跑确认。"
+  ],
+  "snippets": [
+    {
+      "lang": "javascript",
+      "before": "const idCard = '110101199001011234';",
+      "after": "const idCard = generateFakeIdCard(); // 合成数据，禁止真实身份证号"
+    }
+  ],
+  "verify": "重跑 dsh-data-scan --root <项目>，PII-IDCARD 应消失"
+}

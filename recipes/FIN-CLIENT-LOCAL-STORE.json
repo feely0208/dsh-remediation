@@ -1,0 +1,19 @@
+{
+  "ruleId": "FIN-CLIENT-LOCAL-STORE",
+  "title": "客户端本地持久化存储卡号/CVV/口令等支付敏感信息",
+  "effort": "1 小时",
+  "steps": [
+    "客户端只存服务端下发的 token 或掩码后四位，不存卡号、CVV、口令、PIN、磁道。",
+    "必须保留的凭证改用 Keychain / Keystore，并限制访问级别（仅本应用、首次解锁后可读）。",
+    "生物识别只存「已开启」开关，不存特征样本或模板。",
+    "升级时清理旧 key，并确认卸载重装、清除数据后本地不残留。"
+  ],
+  "snippets": [
+    {
+      "lang": "kotlin",
+      "before": "prefs.putString(\"cardNo\", cardNo)",
+      "after": "// 客户端不存卡号，只保存服务端 token\nprefs.putString(\"cardToken\", cardToken)"
+    }
+  ],
+  "verify": "重跑 dsh-industry-finance --root <项目>，FIN-CLIENT-LOCAL-STORE 应消失"
+}

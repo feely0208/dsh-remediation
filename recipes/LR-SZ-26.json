@@ -1,0 +1,19 @@
+{
+  "ruleId": "LR-SZ-26",
+  "title": "对外提供个人数据：去标识化处理",
+  "effort": "1 小时",
+  "steps": [
+    "先确认是否属于「向他人提供」：本人查阅、复制自己的数据（/me/export 等）一般不算，可在报告处补充说明。",
+    "对外提供前先做去标识化：掩码、哈希、泛化，保留可复原映射时单独加密存储并限权。",
+    "把统一 mask / desensitize 工具函数接进导出、批量输出和接口路径，别在每个页面各写一套。",
+    "留存提供目的、接收方、字段清单与处理记录；合同里约定用途与再提供限制。"
+  ],
+  "snippets": [
+    {
+      "lang": "python",
+      "before": "df[[\"id_card\", \"phone\"]].to_csv(path)",
+      "after": "df[[\"id_card\", \"phone\"]].apply(mask_pii).to_csv(path)  # 去标识化后再导出"
+    }
+  ],
+  "verify": "重跑 dsh-local-regulation --root <项目>，LR-SZ-26 应消失"
+}

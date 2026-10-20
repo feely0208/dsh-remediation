@@ -1,0 +1,19 @@
+{
+  "ruleId": "FILING-NO-APP",
+  "title": "移动应用里找不到 APP 备案号",
+  "effort": "30 分钟",
+  "steps": [
+    "2023 年起 APP 需单独备案；先到工信部备案系统完成 APP 备案并取得备案号。",
+    "在启动页 / 首页 /「关于」页展示 APP 备案号，用户能找到即可。",
+    "同步到 app.json、AndroidManifest、Info.plist 或关于页 i18n，避免某个端漏掉。",
+    "未完成备案前不要上架；备案变更后及时更新。"
+  ],
+  "snippets": [
+    {
+      "lang": "json",
+      "before": "\"appName\": \"示例教育\"",
+      "after": "\"appName\": \"示例教育\",\n\"appFilingNo\": \"APP备XXXXXXXX号\""
+    }
+  ],
+  "verify": "重跑 dsh-cn-filing --root <项目>，FILING-NO-APP 应消失"
+}

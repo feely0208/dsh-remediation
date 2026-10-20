@@ -1,0 +1,24 @@
+{
+  "ruleId": "MED-DEVICE-CYBER-POLICY",
+  "title": "找不到覆盖医疗设备全生命周期的网络安全管理制度",
+  "effort": "1 小时",
+  "steps": [
+    "补一份医疗设备全生命周期网络安全管理制度，覆盖采购、安装、运行、维护、报废至少四个环节。",
+    "制度里同时写明「医疗设备」与「网络安全」，并写清各环节责任部门。",
+    "采购/维保合同里加上网络安全义务与违约责任条款。",
+    "如果制度在医院其他体系文件里，在仓库留存文件名与章节索引，方便测评调取。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（docs 里没有设备全生命周期制度）",
+      "after": "## 全生命周期要求\n1. 招标采购：约定安全义务与违约责任\n2. 安装调试：资产登记、弱口令检查、网络分区\n3. 运行使用：日志审计、漏洞监测\n4. 维护维修：远程维护审批留痕\n5. 报废处置：清除数据与凭据"
+    }
+  ],
+  "verify": "重跑 dsh-industry-medical --root <项目>，MED-DEVICE-CYBER-POLICY 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/医疗设备网络安全管理制度.md",
+    "template": "device-cyber-policy"
+  }
+}

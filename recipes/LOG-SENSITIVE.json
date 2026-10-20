@@ -1,0 +1,19 @@
+{
+  "ruleId": "LOG-SENSITIVE",
+  "title": "日志里打印了口令或令牌的值",
+  "effort": "30 分钟",
+  "steps": [
+    "删除日志里的凭据值，只记「谁、何时、操作、成功与否」。",
+    "加日志脱敏中间件或字段白名单，口令/token/secret 一律不进入日志。",
+    "检查告警、异常上报、APM 链路是否也带出了这些值。",
+    "已经写出的日志按「凭据已泄露」处理：轮换该口令或令牌，而不是只改代码。"
+  ],
+  "snippets": [
+    {
+      "lang": "javascript",
+      "before": "logger.info('login password=' + password);",
+      "after": "logger.info('login result', { userId: user.id, ok: true });"
+    }
+  ],
+  "verify": "重跑 dsh-cn-log-retention --root <项目>，LOG-SENSITIVE 应消失"
+}

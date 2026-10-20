@@ -1,0 +1,19 @@
+{
+  "ruleId": "MED-EMR-AUDIT-TRAIL-1",
+  "title": "病历库表/实体缺少操作留痕字段（操作人、操作时间、版本）",
+  "effort": "1 小时",
+  "steps": [
+    "在建表 SQL / 实体上补 updated_by、updated_at、version（或 operator、操作时间、操作账号、trace_id）。",
+    "启用框架统一填充：JPA Auditing / MyBatis-Plus MetaObjectHandler / Hibernate Envers 任选其一，避免每条写入路径各写一遍。",
+    "确认新增、修改、打印、调阅都会写入留痕字段，而不是只有创建。",
+    "对历史数据补默认值或迁移脚本；写清字段含义与查询入口。"
+  ],
+  "snippets": [
+    {
+      "lang": "java",
+      "before": "@Entity\npublic class EmrRecord {\n  private String diagnosis;\n}",
+      "after": "@Entity\n@EntityListeners(AuditingEntityListener.class)\npublic class EmrRecord {\n  private String diagnosis;\n  @LastModifiedBy private String updatedBy;\n  @LastModifiedDate private Instant updatedAt;\n  @Version private Long version;\n}"
+    }
+  ],
+  "verify": "重跑 dsh-industry-medical --root <项目>，MED-EMR-AUDIT-TRAIL-1 应消失"
+}

@@ -1,0 +1,19 @@
+{
+  "ruleId": "CRYPTO-WEAK-HASH",
+  "title": "出现了 MD5 / SHA-1 的调用点或算法名字符串",
+  "effort": "1 小时",
+  "steps": [
+    "口令存储不要直接用哈希：改用 bcrypt / scrypt / Argon2id 或 PBKDF2（足够迭代次数）。",
+    "完整性校验或摘要改用 SM3（GB/T 32905）或 SHA-256 及以上。",
+    "如果 MD5 只用于缓存去重、对象存储 ETag 等非安全用途，加注释说明后忽略本条。",
+    "替换后重新生成存量摘要；检查依赖里是否还引用了弱哈希库。"
+  ],
+  "snippets": [
+    {
+      "lang": "java",
+      "before": "MessageDigest.getInstance(\"MD5\")",
+      "after": "MessageDigest.getInstance(\"SHA-256\")"
+    }
+  ],
+  "verify": "重跑 dsh-cn-crypto --root <项目>，CRYPTO-WEAK-HASH 应消失"
+}

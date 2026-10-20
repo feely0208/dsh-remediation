@@ -1,0 +1,24 @@
+{
+  "ruleId": "PIPIA-NO-RECORD",
+  "title": "仓库里找不到个人信息保护影响评估记录",
+  "effort": "30 分钟",
+  "steps": [
+    "对敏感个人信息处理、自动化决策、对外提供、跨境等场景做影响评估。",
+    "记录评估时间、事项、处理活动描述、风险与措施、结论，以及报告保存位置。",
+    "评估报告和处理情况记录至少保存 3 年。",
+    "处理活动发生重大变更时重新评估并追加记录。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（没有影响评估记录）",
+      "after": "## 评估基本信息\n- 评估事项：新增人脸识别登录\n- 评估日期：2026-XX-XX\n- 结论：有条件通过（需提供非人脸替代方式）\n- 报告保存位置：docs/compliance/pipia/"
+    }
+  ],
+  "verify": "重跑 dsh-pipia --root <项目>，PIPIA-NO-RECORD 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/个人信息保护影响评估记录.md",
+    "template": "pipia-record"
+  }
+}

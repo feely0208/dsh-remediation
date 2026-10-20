@@ -1,0 +1,19 @@
+{
+  "ruleId": "ENV-NOT-IGNORED",
+  "title": ".gitignore / .git/info/exclude 里没有忽略 .env，而项目里有凭据型环境配置",
+  "effort": "5 分钟",
+  "steps": [
+    "在 .gitignore 加一行 .env（以及 .env.local、.env.production 等实际在用的变体）。",
+    "已经提交过的：git rm --cached .env 后提交，并按「密钥已泄露」轮换该密钥。",
+    "补一份 .env.example，只放占位符，不放真实值。",
+    "确认 CI 与构建产物不会把 .env 带出去。"
+  ],
+  "snippets": [
+    {
+      "lang": "gitignore",
+      "before": "node_modules/",
+      "after": "node_modules/\n.env\n.env.*\n!.env.example"
+    }
+  ],
+  "verify": "重跑 dsh-env-audit --root <项目>，ENV-NOT-IGNORED 应消失"
+}

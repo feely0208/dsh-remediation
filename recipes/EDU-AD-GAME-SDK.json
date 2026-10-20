@@ -1,0 +1,19 @@
+{
+  "ruleId": "EDU-AD-GAME-SDK",
+  "title": "教育 App 依赖清单里出现商业广告或游戏 SDK 名称",
+  "effort": "30 分钟",
+  "steps": [
+    "确认命中的广告/游戏 SDK 是否真的会在学生端展示广告或提供游戏内容（可能只是历史遗留或被间接依赖带进来）。",
+    "不需要就直接从依赖清单移除，并重新生成 lockfile；同时检查构建脚本里的排除项是否真的生效。",
+    "确实需要保留的，记录评估结论、使用场景与关闭入口，别只删依赖名了事。",
+    "从应用商店配置与隐私政策里同步移除对应 SDK 的数据收集说明。"
+  ],
+  "snippets": [
+    {
+      "lang": "gradle",
+      "before": "implementation 'com.google.android.gms:play-services-ads:23.0.0'",
+      "after": "// 已移除：教育移动应用不得植入商业广告"
+    }
+  ],
+  "verify": "重跑 dsh-industry-education --root <项目>，EDU-AD-GAME-SDK 应消失"
+}

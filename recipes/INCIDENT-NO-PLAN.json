@@ -1,0 +1,24 @@
+{
+  "ruleId": "INCIDENT-NO-PLAN",
+  "title": "找不到网络安全事件应急预案",
+  "effort": "1 小时",
+  "steps": [
+    "在 docs/compliance 补一份网络安全事件应急预案，覆盖事件分级、处置流程、责任人、对外沟通口径。",
+    "写清 24 小时值班电话与上报时限，别只写「及时上报」。",
+    "每年至少组织一次演练并留存演练记录。",
+    "预案随组织架构变化更新，并让应急联系人知道文件位置。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（文档里没有应急预案）",
+      "after": "## 事件分级\n\n| 级别 | 判定 | 上报时限 |\n|---|---|---|\n| 重大 | 敏感数据泄露 | 30 分钟内 |\n\n## 处置流程\n\n发现 → 报告 → 隔离 → 取证 → 恢复 → 复盘"
+    }
+  ],
+  "verify": "重跑 dsh-incident-package --root <项目>，INCIDENT-NO-PLAN 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/网络安全事件应急预案.md",
+    "template": "incident-plan"
+  }
+}

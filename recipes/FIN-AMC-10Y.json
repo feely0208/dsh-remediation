@@ -1,0 +1,25 @@
+{
+  "ruleId": "FIN-AMC-10Y",
+  "title": "客户身份资料/交易记录留存期配置不足十年",
+  "effort": "30 分钟",
+  "steps": [
+    "确认命中配置是客户身份资料/交易记录主数据的留存，不是会话、缓存、日志、风控临时快照。",
+    "留存天数改为不少于 3650 天；SQL 里的 INTERVAL 改为 10 YEAR 或 3650 DAY。",
+    "分区清理、归档脚本同步改；短留存配置单独命名并注释用途，避免被当成主数据策略。",
+    "已归档冷存储的清理策略需要人工确认；留存期限写进数据留存规定。"
+  ],
+  "snippets": [
+    {
+      "lang": "yaml",
+      "before": "retentionDays: 1825",
+      "after": "retentionDays: 3650  # 反洗钱法：客户身份资料/交易记录至少 10 年"
+    }
+  ],
+  "verify": "重跑 dsh-industry-finance --root <项目>，FIN-AMC-10Y 应消失",
+  "autoApply": {
+    "type": "setValue",
+    "glob": "**/*.{yml,yaml,properties,json,sql,java,kt,js,mjs,ts,py,go,xml,conf}",
+    "pattern": "((?:retention|retain|keep)[_A-Za-z]*(?:days?|ttl)\\w*\\s*[:=]\\s*[\"']?)(?:\\d{1,3}|[1-2]\\d{3}|3[0-5]\\d{2}|36[0-4]\\d)(?=[\"'\\s,;}]|$)",
+    "after": "3650"
+  }
+}

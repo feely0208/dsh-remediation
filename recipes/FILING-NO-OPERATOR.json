@@ -1,0 +1,19 @@
+{
+  "ruleId": "FILING-NO-OPERATOR",
+  "title": "找不到运营者主体信息",
+  "effort": "30 分钟",
+  "steps": [
+    "在页脚或隐私政策里写明运营主体全称（与备案主体一致）和可用的联系方式。",
+    "联系方式至少给一个能接通的邮箱或电话，不要只写「联系客服」。",
+    "有多个运营主体（如集团 + 子公司）时分别列明各自负责的业务。",
+    "主体信息变更后同步更新页脚、隐私政策与备案信息。"
+  ],
+  "snippets": [
+    {
+      "lang": "html",
+      "before": "<footer>© 2026</footer>",
+      "after": "<footer>© 2026 示例科技有限公司 · 联系邮箱：privacy@example.com</footer>"
+    }
+  ],
+  "verify": "重跑 dsh-cn-filing --root <项目>，FILING-NO-OPERATOR 应消失"
+}

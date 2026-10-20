@@ -1,0 +1,19 @@
+{
+  "ruleId": "RIGHTS-NO-DELETE",
+  "title": "找不到删除个人信息 / 注销账号的实现",
+  "effort": "需要业务决策",
+  "steps": [
+    "先确定产品是否真的提供账号体系；有的话必须实现注销账号与删除个人信息。",
+    "删除要覆盖主表、关联表、备份、缓存、对象存储与第三方同步。",
+    "软删除要写清数据保留位置、不可见范围与最终物理删除时间。",
+    "提供用户能找到的申请入口；纯人工处理时写进流程文档并留存受理记录。"
+  ],
+  "snippets": [
+    {
+      "lang": "javascript",
+      "before": "// 没有删除实现",
+      "after": "async function deleteAccount(userId) {\n  await db.user.delete({ where: { id: userId } });\n  await db.session.deleteMany({ where: { userId } });\n  await objectStorage.deleteByPrefix(`users/${userId}/`);\n  await cache.del(`user:${userId}`);\n}"
+    }
+  ],
+  "verify": "重跑 dsh-data-rights --root <项目>，RIGHTS-NO-DELETE 应消失"
+}

@@ -1,0 +1,19 @@
+{
+  "ruleId": "CONSENT-PRECHECKED",
+  "title": "同意勾选框默认勾选",
+  "effort": "5 分钟",
+  "steps": [
+    "把同意勾选框改成默认不勾选，由用户主动选择。",
+    "未勾选前禁用「同意并继续」按钮，不用「继续使用即视为同意」。",
+    "同意动作与隐私政策展示分开，不把多项授权捆在一个勾选框里。",
+    "记录同意时间与隐私政策版本，提供撤回入口。"
+  ],
+  "snippets": [
+    {
+      "lang": "jsx",
+      "before": "<input type=\"checkbox\" defaultChecked /> 我已阅读并同意《隐私政策》",
+      "after": "<input type=\"checkbox\" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} /> 我已阅读并同意《隐私政策》"
+    }
+  ],
+  "verify": "重跑 dsh-consent-guard --root <项目>，CONSENT-PRECHECKED 应消失"
+}

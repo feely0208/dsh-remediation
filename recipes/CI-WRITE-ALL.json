@@ -1,0 +1,25 @@
+{
+  "ruleId": "CI-WRITE-ALL",
+  "title": "workflow 权限设为 write-all",
+  "effort": "5 分钟",
+  "steps": [
+    "把顶层 permissions 改成最小权限：默认 read-all 或 contents: read。",
+    "把顶层 permissions 改成最小权限映射，例如只读仓库内容：permissions: { contents: read }。",
+    "第三方 action 用到哪些权限就只给哪些，不给 write-all 兜底。",
+    "改完重跑 workflow，确认发布/评论等步骤仍能正常执行。"
+  ],
+  "snippets": [
+    {
+      "lang": "yaml",
+      "before": "permissions: write-all",
+      "after": "permissions:\n  contents: read"
+    }
+  ],
+  "verify": "重跑 dsh-ci-guard --root <项目>，CI-WRITE-ALL 应消失",
+  "autoApply": {
+    "type": "setValue",
+    "glob": ".github/workflows/*.{yml,yaml}",
+    "pattern": "(permissions\\s*:\\s*)(write-all)",
+    "after": "\n  contents: read"
+  }
+}

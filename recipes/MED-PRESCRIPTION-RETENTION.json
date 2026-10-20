@@ -1,0 +1,19 @@
+{
+  "ruleId": "MED-PRESCRIPTION-RETENTION",
+  "title": "处方保存期限声明低于 1 年法定下限（普通/急诊/儿科处方）",
+  "effort": "1 小时",
+  "steps": [
+    "按处方类别分别设置保存期：普通/急诊/儿科 ≥365 天；毒性药品与第二类精神药品 ≥730 天；麻醉药品与第一类精神药品 ≥1095 天。",
+    "180 天、6 个月这类值在任何一类处方上都不满足下限，必须改。",
+    "「处方随病历一并保存」时，仍要满足对应类别的最短年限，不能只看病历总期限。",
+    "配置命名区分处方类别，避免一份通用值覆盖所有类别；同步更新制度文件。"
+  ],
+  "snippets": [
+    {
+      "lang": "yaml",
+      "before": "prescription_retention_days: 180",
+      "after": "prescription_retention_days:\n  general_emergency_pediatric: 365\n  toxic_and_class2: 730\n  narcotic_and_class1: 1095"
+    }
+  ],
+  "verify": "重跑 dsh-industry-medical --root <项目>，MED-PRESCRIPTION-RETENTION 应消失"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "深鲸守护 · 混合样例报告",
+  "version": "0.0.0",
+  "generatedAt": "2026-10-20T00:00:00.000Z",
+  "stats": {
+    "root": "tests/fixtures/project",
+    "scannedFiles": 3,
+    "rulesTotal": 5,
+    "rulesRun": 5,
+    "findings": 5
+  },
+  "findings": [
+    {
+      "ruleId": "LOG-RETENTION-SHORT",
+      "title": "日志留存期短于法定 6 个月",
+      "severity": "high",
+      "source": "《中华人民共和国网络安全法》第二十一条第（三）项 —— 网络日志不少于六个月",
+      "advice": "请确认它就是日志保留期，合规留存需要单独一份、保留 ≥180 天、并且不可被应用进程随意删除。",
+      "file": "logger/logger.js",
+      "line": 2,
+      "evidence": "maxDays: 7",
+      "excerpt": "const cfg = { level: 'off', maxDays: 7 };"
+    },
+    {
+      "ruleId": "LOG-DISABLED",
+      "title": "日志级别被关闭",
+      "severity": "high",
+      "source": "GB/T 22239-2019 第三级 · 安全计算环境 · 安全审计 —— 应启用安全审计功能",
+      "advice": "日志级别设为 off 等于没有审计记录，请改为调高级别而不是全关。",
+      "file": "logger/logger.js",
+      "line": 2,
+      "evidence": "level: 'off",
+      "excerpt": "const cfg = { level: 'off', maxDays: 7 };"
+    },
+    {
+      "ruleId": "MED-PRESCRIPTION-RETENTION",
+      "title": "处方保存期限声明低于 1 年法定下限（普通/急诊/儿科处方）",
+      "severity": "high",
+      "source": "《处方管理办法》（卫生部令第53号）第五十条 —— 普通、急诊、儿科处方保存 1 年",
+      "advice": "请按处方类别分别设置保存期限，180 天在任何一类处方上都不合法。",
+      "file": "config/retention.yaml",
+      "line": 2,
+      "evidence": "prescription_retention_days: 180",
+      "excerpt": "prescription_retention_days: 180"
+    },
+    {
+      "ruleId": "LIC-SELF-FILE",
+      "title": "项目根目录缺少 LICENSE 文件",
+      "severity": "medium",
+      "source": "开源合规基础要求 —— 仓库根目录应有 LICENSE",
+      "advice": "加一个 LICENSE 文件（MIT / Apache-2.0 等）。",
+      "file": "LICENSE",
+      "line": 0,
+      "evidence": "根目录没有 LICENSE"
+    },
+    {
+      "ruleId": "UNKNOWN-RULE-DEMO",
+      "title": "一条本插件还没有专用改法的规则",
+      "severity": "medium",
+      "source": "示例来源：用于验证「无 recipe」兜底文案",
+      "advice": "原报告给的建议：先确认业务场景，再按团队规范处理，不要照抄通用模板。",
+      "file": "src/unknown.js",
+      "line": 10,
+      "evidence": "demo"
+    }
+  ]
+}

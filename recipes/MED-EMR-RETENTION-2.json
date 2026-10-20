@@ -1,0 +1,24 @@
+{
+  "ruleId": "MED-EMR-RETENTION-2",
+  "title": "找不到写明 15 年（门急诊）或 30 年（住院）的病历保存期限声明",
+  "effort": "30 分钟",
+  "steps": [
+    "在 docs/compliance/病历保存期限声明.md 补一份可查的保存期限声明：门急诊 ≥15 年、住院 ≥30 年，并写明起算点。",
+    "让应用配置里的保留天/年数与声明一致（5475 天 / 10950 天）。",
+    "写清导出缓存、备份轮转、临时 TTL 不能替代病历保存期。",
+    "指定责任部门与责任人，并注明声明随制度文件归档的位置。"
+  ],
+  "snippets": [
+    {
+      "lang": "markdown",
+      "before": "（仓库里没有任何保存期限声明）",
+      "after": "- 门急诊病历：自末次就诊起不少于 15 年（5475 天）\n- 住院病历：自末次出院起不少于 30 年（10950 天）"
+    }
+  ],
+  "verify": "重跑 dsh-industry-medical --root <项目>，MED-EMR-RETENTION-2 应消失",
+  "autoApply": {
+    "type": "newFile",
+    "path": "docs/compliance/病历保存期限声明.md",
+    "template": "emr-retention-statement"
+  }
+}

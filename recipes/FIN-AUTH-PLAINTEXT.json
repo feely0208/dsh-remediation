@@ -1,0 +1,19 @@
+{
+  "ruleId": "FIN-AUTH-PLAINTEXT",
+  "title": "鉴别信息（口令/PIN/短信验证码）明文落库、写日志或直接打印",
+  "effort": "1 小时",
+  "steps": [
+    "明文口令列改为加盐慢哈希：bcrypt / Argon2id / PBKDF2（迭代次数按当前建议），不要用可逆加密。",
+    "日志与标准输出只记「谁、何时、成功与否」，不带出口令、PIN、验证码、卡号的值。",
+    "短信验证码只存哈希并设置短 TTL；一次性 PIN 用后立即失效。",
+    "存量数据迁移：要求用户重置口令，或强制下次登录时改密；已写进日志的凭据按泄露轮换。"
+  ],
+  "snippets": [
+    {
+      "lang": "sql",
+      "before": "password varchar(64)",
+      "after": "password_hash varchar(100)  -- bcrypt/Argon2id，禁止明文"
+    }
+  ],
+  "verify": "重跑 dsh-industry-finance --root <项目>，FIN-AUTH-PLAINTEXT 应消失"
+}
