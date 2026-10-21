@@ -1,5 +1,7 @@
 # @deepwhale-cn/dsh-remediation
 
+[![dshfind 收录](https://dshfind.com/api/badge/feely0208/dsh-remediation?lang=zh)](https://dshfind.com/zh/plugins/feely0208/dsh-remediation)
+
 [![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/zh/plugins/feely0208/dsh-remediation)
 
 **检查报告只说「哪有问题」，改法还得自己查 —— 这个插件把「改成什么样、大概多久、改完怎么验」直接给出来。**
