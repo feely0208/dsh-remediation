@@ -153,7 +153,7 @@ node "$CLI" --bogus >/dev/null 2>&1
 
 echo ""; echo "  【6】端到端：真插件报出 → --apply → 重跑同一插件，finding 必须消失"
 if [ ! -d "$LOG_PLUGIN" ]; then
-  bad "找不到 dsh-cn-log-retention（$LOG_PLUGIN），端到端无法验证"
+  bad "找不到 dsh-cn-log-retention（${LOG_PLUGIN}），端到端无法验证"
 else
   E2E="$TMPBASE/e2e"
   cp -R "$LOG_PLUGIN/tests/fixtures/fail/demo-project" "$E2E"
@@ -166,7 +166,7 @@ print(len([f for f in d.get('findings',[]) if f.get('ruleId')=='LOG-RETENTION-SH
 
   node "$CLI" --input "$TMPBASE/e2e-before.json" --root "$E2E" --apply > "$TMPBASE/e2e-apply.txt" 2>&1
   AE=$?
-  [ "$AE" = "0" ] && ok "整改命令执行成功（exit 0）" || bad "整改命令失败（exit $AE）"
+  [ "$AE" = "0" ] && ok "整改命令执行成功（exit 0）" || bad "整改命令失败（exit ${AE}）"
   grep -q '已改写 1 个文件' "$TMPBASE/e2e-apply.txt" && ok "端到端：实际改写了文件" || bad "端到端：没有改写记录"
   ls "$E2E"/logger.js.bak-* >/dev/null 2>&1 && ok "端到端：落盘前已备份" || bad "端到端：没有备份"
 
